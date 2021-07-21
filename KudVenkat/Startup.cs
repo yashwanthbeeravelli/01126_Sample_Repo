@@ -31,15 +31,40 @@ namespace KudVenkat
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-
             if (env.IsDevelopment())
             {
+                /*
                 DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions {
                     SourceCodeLineCount = 10
                 };
-                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
+                */
+                app.UseDeveloperExceptionPage();
             }
 
+            if(env.IsStaging())
+            {
+                //app.UseExceptionHandler("/Error");
+            }
+
+            if(env.IsProduction())
+            {
+                //app.UseExceptionHandler("/Error");
+            }
+
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/", async context =>
+                {                    
+                    await context.Response.WriteAsync("Hosting from: " + env.EnvironmentName + "\n");
+                    await context.Response.WriteAsync("Hello World!");
+                    //await context.Response.WriteAsync(System.Diagnostics.Process.GetCurrentProcess().ProcessName);
+                });
+            });
+
+            /*I am commenting the below code considering the above concept of Environmental Variables */
+
+            /* 
             DefaultFilesOptions defaultFileOptions = new DefaultFilesOptions();
             defaultFileOptions.DefaultFileNames.Clear();
             defaultFileOptions.DefaultFileNames.Add("foo.html");
@@ -48,18 +73,7 @@ namespace KudVenkat
             app.UseStaticFiles();
             app.UseMiddleware<Middleware>();
 
-            app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {                    
-                    //await context.Response.WriteAsync(_configuration["MyKey"]);
-                    await context.Response.WriteAsync("Hello World!");
-                    //await context.Response.WriteAsync(System.Diagnostics.Process.GetCurrentProcess().ProcessName);
-                });
-            });
-            
-            //app.UseWelcomePage();
+            app.UseWelcomePage();
             app.Use(async (context, next) => 
             {
                 logger.LogInformation("MW1: Incoming Request");
@@ -76,7 +90,7 @@ namespace KudVenkat
             });
             //app.Use(async (context, next) => { await context.Response.WriteAsync("Hello Yashwanth. This is 1st Middleware"); await next(); });
             app.Run(async (context) => {
-                throw new Exception("Some error while processing ");
+                //throw new Exception("Some error while processing ");
                 await context.Response.WriteAsync("Yoo Bro. This is the Terminal Middleware."); 
             });
             app.UseStaticFiles();
@@ -93,7 +107,7 @@ namespace KudVenkat
             });
             
             app.UseStaticFiles();
-            
+            */
         }
     }
 }
