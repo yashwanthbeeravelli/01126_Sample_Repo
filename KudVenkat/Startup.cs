@@ -20,14 +20,15 @@ namespace KudVenkat
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddMvc(); //Will simply add the MVC as a Service to dotnet Core
+            services.AddMvc(x => x.EnableEndpointRouting = false); //In .NET 3.0, EndPoints was introduced. So, if ever we have to use UseMvcWithDefaultRoute then we need to make EnableEndpointRouting to be false.
         }
 
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
@@ -51,9 +52,25 @@ namespace KudVenkat
                 //app.UseExceptionHandler("/Error");
             }
 
+            app.UseMvcWithDefaultRoute();
+            
+            //Runs matching. An endpoint is selected and set on the HttpContext if a match is found.
             app.UseRouting();
+            
+            //Middleware that occurs after the routing occurs. Usually the following appear here:
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseCors();
+            //These middleware can take different actions based on the endpoint.
+
+            app.Run(async (context) => await context.Response.WriteAsync("Hello World. This is just Testing the MVC Middleware.") );
+            /*
+            //Executes the endpont that was selected by Routing.
             app.UseEndpoints(endpoints =>
             {
+                //Mapping of the endpoints goes here:
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
                 endpoints.MapGet("/", async context =>
                 {                    
                     await context.Response.WriteAsync("Hosting from: " + env.EnvironmentName + "\n");
@@ -61,7 +78,7 @@ namespace KudVenkat
                     //await context.Response.WriteAsync(System.Diagnostics.Process.GetCurrentProcess().ProcessName);
                 });
             });
-
+            */
             /*I am commenting the below code considering the above concept of Environmental Variables */
 
             /* 
