@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KudVenkat.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +23,8 @@ namespace KudVenkat
         {
             services.AddMvc(); //Will simply add the MVC as a Service to dotnet Core
             services.AddMvc(x => x.EnableEndpointRouting = false); //In .NET 3.0, EndPoints was introduced. So, if ever we have to use UseMvcWithDefaultRoute then we need to make EnableEndpointRouting to be false.
+
+            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>(); //Creates a Singleton Service for the whole application
         }
 
         public Startup(IConfiguration configuration)
