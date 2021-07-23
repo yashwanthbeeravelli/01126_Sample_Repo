@@ -21,10 +21,11 @@ namespace KudVenkat
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(); //Will simply add the MVC as a Service to dotnet Core
+            services.AddMvc().AddXmlSerializerFormatters(); //Will simply add the MVC as a Service to dotnet Core
             services.AddMvc(x => x.EnableEndpointRouting = false); //In .NET 3.0, EndPoints was introduced. So, if ever we have to use UseMvcWithDefaultRoute then we need to make EnableEndpointRouting to be false.
 
             services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>(); //Creates a Singleton Service for the whole application
+            
         }
 
         public Startup(IConfiguration configuration)

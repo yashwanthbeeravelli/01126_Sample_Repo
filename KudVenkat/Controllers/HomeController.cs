@@ -26,5 +26,19 @@ namespace KudVenkat.Controllers
             return View();
         }
         */
+
+        /* The below code returns the result in a Json Format. Typically used for Web APIs, REST Services */
+        public JsonResult JsonDetails()
+        {
+            Employee model = _employeeRepository.GetEmployeeById(3);
+            return Json(model);
+        }
+
+        /* The below code returns the result in a XML Format. */
+        public ObjectResult ObjDetails()
+        {
+            Employee model = _employeeRepository.GetEmployeeById(3);
+            return new ObjectResult(model);
+        }
     }
 }
