@@ -15,17 +15,21 @@ namespace KudVenkat.Controllers
         {
             _employeeRepository = employeeRepository;
         }
+        /*
         public string Index()
         {
             return _employeeRepository.GetEmployeeById(2).Name;
             //return "Hello World. This is from MVC HomeController";
         }
-        /*
-        public IActionResult Index()
-        {
-            return View();
-        }
         */
+        public ViewResult Index()
+        {
+            return View(); //Will call the Views/Home/Index.cshtml
+            return View("Details"); //Will call the Views/Home/Details.cshtml
+            return View("../Test/TestDetails"); //Will call the Views/Test/Details.cshtml            
+            //return View("This should post the view on Home/Index.cshtml");
+        }
+
 
         /* The below code returns the result in a Json Format. Typically used for Web APIs, REST Services */
         public JsonResult JsonDetails()
