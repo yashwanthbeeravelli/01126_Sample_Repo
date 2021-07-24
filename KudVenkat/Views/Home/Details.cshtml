@@ -1,19 +1,19 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
+﻿@model KudVenkat.Models.Employee 
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Employee Details View from ViewData</title>
+    <title>Employee Details View from ViewBag</title>
 </head>
 <body>
-    @{ var Employee = ViewData["Employee"] as KudVenkat.Models.Employee;
-    }
-    <h1>@ViewData["PageTitle"]</h1>
+    
+    <h1>@ViewBag.PageTitle</h1>
     <div>
-        Name: @Employee.Name
+        Name: @Model.Name
     </div>
         <div>
-        ID: @Employee.ID.ToString()
+        ID: @Model.ID.ToString()
     </div>
     <div>
-        Department: @Employee.Department
+        Department: @Model.Department
     </div>
 </body>
 </html>

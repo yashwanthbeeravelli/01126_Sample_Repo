@@ -18,16 +18,16 @@ namespace KudVenkat.Controllers
         
         public string Index()
         {
-            return _employeeRepository.GetEmployeeById(2).Name;        
+            return _employeeRepository.GetEmployeeById(1).Name;        
         }
             
-        /* This function returns the data in ViewData */
+        /* This function returns the data in ViewBag */
         public ViewResult Details()
         {
-            Employee employee = _employeeRepository.GetEmployeeById(1);
-            ViewData["Employee"] = employee;
-            ViewData["PageTitle"] = "Employee Info from ViewData";
-            return View(employee);
+            Employee model = _employeeRepository.GetEmployeeById(2);
+            ViewBag.Employee = model;
+            ViewBag.PageTitle = "Employee Info from ViewBag";
+            return View(model);
         }
     }
 }
