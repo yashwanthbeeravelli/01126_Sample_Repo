@@ -1,8 +1,19 @@
 ﻿<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Details View</title>>
+    <title>Employee Details View from ViewData</title>
 </head>
 <body>
-    <h1>This will display the Details.cshtml contents or simply the result from any Action Method being called inside that Action Method.</h1>
+    @{ var Employee = ViewData["Employee"] as KudVenkat.Models.Employee;
+    }
+    <h1>@ViewData["PageTitle"]</h1>
+    <div>
+        Name: @Employee.Name
+    </div>
+        <div>
+        ID: @Employee.ID.ToString()
+    </div>
+    <div>
+        Department: @Employee.Department
+    </div>
 </body>
-</html>>
+</html>
